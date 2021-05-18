@@ -41,7 +41,6 @@ RUN true \
             curl \
     && rm /etc/nginx/conf.d/default.conf
 
-
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
 
@@ -75,9 +74,7 @@ USER nobody
 # Add application
 WORKDIR /var/www/html
 
-ENV DIR nginx-php
-
-COPY --chown=nobody $DIR/src/ /var/www/html/
+COPY --chown=nobody src/ /var/www/html/
 
 # Expose the port nginx is reachable on
 EXPOSE 8080
