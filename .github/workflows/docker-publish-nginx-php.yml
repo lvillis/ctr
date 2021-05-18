@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  CONTEXT: /nginx-php
+  CONTEXT: nginx-php/
   REPO_NAME: lvillis/nginx-php
 
 jobs:
