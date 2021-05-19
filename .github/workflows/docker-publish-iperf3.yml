@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  CONTEXT: /iperf3/
+  CONTEXT: iperf3
   REPO_NAME: lvillis/iperf3
 
 jobs:
