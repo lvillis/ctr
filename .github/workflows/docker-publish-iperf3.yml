@@ -6,8 +6,7 @@ on:
       - master
 
 env:
-  CONTEXT: .
-  FILE_PATH: iperf3
+  CONTEXT: /iperf3
   REPO_NAME: lvillis/iperf3
 
 jobs:
@@ -34,7 +33,7 @@ jobs:
         uses: docker/build-push-action@v2.4.0
         with:
           context: ${{ env.CONTEXT }}
-          file: ${{ env.FILE_PATH }}/${{ env.TAG_NAME }}.Dockerfile
+          file: ${{ env.TAG_NAME }}.Dockerfile
           push: true
           tags: ${{ env.REPO_NAME }}:${{ env.TAG_NAME }}
           cache-from: type=registry,ref=${{ env.REPO_NAME }}:${{ env.TAG_NAME }}
