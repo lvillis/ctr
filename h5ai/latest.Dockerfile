@@ -20,12 +20,10 @@ RUN true \
     && set -x \
     && apk add --no-cache \
             php8 \
-            php8-ctype \
             php8-exif \
             php8-fpm \
             php8-gd \
             php8-json \
-            php8-openssl \
             php8-mbstring \
             php8-intl \
             php8-session \
