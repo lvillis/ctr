@@ -53,7 +53,7 @@ COPY $DIR/config/php.ini /etc/php8/conf.d/custom.ini
 # Configure supervisord
 COPY $DIR/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-ENV RUNTIME_USER root
+ENV RUNTIME_USER nobody
 
 RUN true \
     # Any command which returns non-zero exit code will cause this shell script to exit immediately:
