@@ -7,6 +7,7 @@ RUN true \
     # Activate debugging to show execution details: all commands will be printed before execution
     && set -x \
     && echo "https://dl-4.alpinelinux.org/alpine/v3.13/main/" >> /etc/apk/repositories \
+    && apk update \
     && apk add --update --no-cache tzdata vim curl \
     && cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
     && echo "${TIME_ZONE}" > /etc/timezone \
