@@ -23,6 +23,7 @@ RUN true \
             php8-ctype \
             php8-curl \
             php8-dom \
+            php8-exif \
             php8-fpm \
             php8-gd \
             php8-opcache \
@@ -36,6 +37,9 @@ RUN true \
             php8-xmlreader \
             php8-zlib \
             php8-session \
+            ffmpeg \
+            convert \
+            zip \
             nginx \
             supervisor \
             curl \
