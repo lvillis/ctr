@@ -6,7 +6,7 @@ RUN true \
     && set -e \
     # Activate debugging to show execution details: all commands will be printed before execution
     && set -x \
-    && echo "https://dl-4.alpinelinux.org/alpine/v3.13/main/" >> /etc/apk/repositories \
+    && echo "https://dl-4.alpinelinux.org/alpine/edge/main/" >> /etc/apk/repositories \
     && apk update \
     && apk add --update --no-cache tzdata vim curl \
     && cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
@@ -40,7 +40,7 @@ RUN true \
             ffmpeg \
             graphicsmagick \
             zip \
-            nginx=1.20.0-r0 \
+            nginx \
             supervisor \
             curl \
     && rm /etc/nginx/conf.d/default.conf
