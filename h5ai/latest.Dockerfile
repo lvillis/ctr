@@ -38,7 +38,7 @@ RUN true \
             php8-zlib \
             php8-session \
             ffmpeg \
-            convert \
+            graphicsmagick \
             zip \
             nginx \
             supervisor \
