@@ -1,4 +1,4 @@
-FROM alpine:3.13
+FROM alpine:3.13.5
 
 ENV TIME_ZONE Asia/Shanghai
 RUN true \
@@ -27,7 +27,6 @@ RUN true \
             php8-fpm \
             php8-gd \
             php8-opcache \
-            php8-mysqli \
             php8-json \
             php8-openssl \
             php8-mbstring \
