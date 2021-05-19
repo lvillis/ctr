@@ -41,17 +41,15 @@ RUN true \
             curl \
     && rm /etc/nginx/conf.d/default.conf
 
-ENV DIR nginx-php
-
 # Configure nginx
-COPY $DIR/config/nginx.conf /etc/nginx/nginx.conf
+COPY config/nginx.conf /etc/nginx/nginx.conf
 
 # Configure PHP-FPM
-COPY $DIR/config/fpm-pool.conf /etc/php8/php-fpm.d/www.conf
-COPY $DIR/config/php.ini /etc/php8/conf.d/custom.ini
+COPY config/fpm-pool.conf /etc/php8/php-fpm.d/www.conf
+COPY config/php.ini /etc/php8/conf.d/custom.ini
 
 # Configure supervisord
-COPY $DIR/config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 ENV RUNTIME_USER nobody
 
@@ -76,7 +74,7 @@ USER nobody
 # Add application
 WORKDIR /var/www/html
 
-COPY --chown=nobody $DIR/src/ /var/www/html/
+COPY --chown=nobody src/ /var/www/html/
 
 # Expose the port nginx is reachable on
 EXPOSE 8080

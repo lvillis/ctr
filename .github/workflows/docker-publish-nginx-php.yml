@@ -6,7 +6,7 @@ on:
       - master
 
 env:
-  CONTEXT: .
+  CONTEXT: nginx-php
   FILE_PATH: nginx-php
   REPO_NAME: lvillis/nginx-php
 
