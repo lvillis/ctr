@@ -39,7 +39,7 @@ RUN true \
             ffmpeg \
             graphicsmagick \
             zip \
-            nginx \
+            nginx=1.20.0-r0 \
             supervisor \
             curl \
     && rm /etc/nginx/conf.d/default.conf
