@@ -74,7 +74,7 @@ USER nobody
 # Add application
 WORKDIR /var/www/html
 
-COPY --chown=nobody _h5ai/ /var/www/html/
+COPY --chown=nobody _h5ai/ /var/www/html/_h5ai
 
 # Expose the port nginx is reachable on
 EXPOSE 8080
