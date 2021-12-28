@@ -1,0 +1,82 @@
+version: "3.5"
+
+x-services:
+  apisix: &apisix
+    networks:
+      apisix-network:
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: always
+
+networks:
+  apisix-network:
+    driver: bridge
+
+services:
+  apisix-dashboard:
+    <<: *apisix
+    container_name: apisix_dashboard
+    ports:
+      - "9000:9000"
+    volumes:
+      - ./apisix_dashboard/conf.yaml:/usr/local/apisix-dashboard/conf/conf.yaml
+      - /etc/localtime:/etc/localtime:ro
+    image: apache/apisix-dashboard:2.10.1-alpine
+
+  apisix:
+    <<: *apisix
+    container_name: apisix
+    ports:
+      - "80:9080/tcp"
+      - "443:9443/tcp"
+      - "9091:9091/tcp"
+    volumes:
+      - ./apisix/logs:/usr/local/apisix/logs
+      - ./apisix/conf/config.yaml:/usr/local/apisix/conf/config.yaml:ro
+      - /etc/localtime:/etc/localtime:ro
+    depends_on:
+      - apisix_etcd
+    image: apache/apisix:2.11.0-alpine
+
+  apisix_etcd:
+    <<: *apisix
+    container_name: apisix_etcd
+    user: root
+    ports:
+      - "2379:2379/tcp"
+    environment:
+      ETCD_DATA_DIR: /apisix_etcd
+      ETCD_ENABLE_V2: "true"
+      ALLOW_NONE_AUTHENTICATION: "yes"
+      ETCD_ADVERTISE_CLIENT_URLS: "http://0.0.0.0:2379"
+      ETCD_LISTEN_CLIENT_URLS: "http://0.0.0.0:2379"
+    volumes:
+      - ./apisix_etcd:/apisix_etcd
+      - /etc/localtime:/etc/localtime:ro
+    image: bitnami/etcd:3.4.9
+
+  apisix_web1:
+    <<: *apisix
+    container_name: apisix_web1
+    ports:
+      - "9081:80/tcp"
+    environment:
+      - NGINX_PORT=80
+    volumes:
+      - ./apisix_upstream/web1.conf:/etc/nginx/nginx.conf
+      - /etc/localtime:/etc/localtime:ro
+    image: nginx:1.21.4-alpine
+
+  apisix_web2:
+    <<: *apisix
+    container_name: apisix_web2
+    ports:
+      - "9082:80/tcp"
+    environment:
+      - NGINX_PORT=80
+    volumes:
+      - ./apisix_upstream/web2.conf:/etc/nginx/nginx.conf
+      - /etc/localtime:/etc/localtime:ro
+    image: nginx:1.21.4-alpine
