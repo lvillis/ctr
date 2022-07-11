@@ -1,4 +1,4 @@
-name: Docker iperf3
+name: Docker 3.11-rc-alpine3.16
 
 on:
   push:
