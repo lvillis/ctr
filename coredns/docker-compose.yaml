@@ -1,0 +1,25 @@
+version: '3.8'
+
+x-services:
+  default: &default
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+    restart: always
+
+services:
+  coredns:
+    <<: *default
+    container_name: coredns
+    command: -conf /data/Corefile
+    volumes:
+      - ./data:/data:ro
+      - /etc/localtime:/etc/localtime:ro
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    network_mode: host
+    image: coredns/coredns:1.9.3
