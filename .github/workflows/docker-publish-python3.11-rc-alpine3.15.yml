@@ -1,4 +1,4 @@
-name: Docker 3.11-rc-alpine3.15
+name: Docker | python:3.11-rc-alpine3.15
 
 on:
   push:
