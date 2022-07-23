@@ -14,4 +14,6 @@ RUN set -ex \
     && echo "${TIME_ZONE}" > /etc/timezone \
     && apk del tzdata \
     && echo "export PS1='[\u@\h \w]$'" >> /etc/profile \
-    && echo 'alias ll="ls -lahF --color=auto"' >>~/.bashrc
+    && source /etc/profile \
+    && echo 'alias ll="ls -lahF --color=auto"' >> ~/.bashrc \
+    && source ~/.bashrc
