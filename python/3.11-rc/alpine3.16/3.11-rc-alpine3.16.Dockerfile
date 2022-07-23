@@ -12,4 +12,6 @@ RUN set -ex \
     && apk add --update --no-cache tzdata \
     && cp /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime \
     && echo "${TIME_ZONE}" > /etc/timezone \
-    && apk del tzdata
+    && apk del tzdata \
+    && echo "export PS1='[\u@\h \w]$'" >> /etc/profile \
+    && echo 'alias ll="ls -lahF --color=auto"' >>~/.bashrc
