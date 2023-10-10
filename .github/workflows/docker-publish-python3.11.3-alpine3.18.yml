@@ -12,7 +12,10 @@ env:
 
 jobs:
   job:
-    if: "contains(github.event.head_commit.message, 'build.all') || contains(github.event.head_commit.message, 'build.python') || contains(github.event.head_commit.message, 'build.python3.11.3-alpine3.18')"
+    if: >-
+      contains(github.event.head_commit.message, 'build.python3.11.3-alpine3.18') ||
+      contains(github.event.head_commit.message, 'build.python') ||
+      contains(github.event.head_commit.message, 'build.all')
     env:
       TAG_NAME: 3.11.3-alpine3.18
     name: latest
