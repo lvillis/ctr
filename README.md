@@ -1,6 +1,6 @@
 <div align="center">
 
-# Dockerfiles
+# ctr
 
 *A collection of delicious docker recipes.*
 
@@ -21,3 +21,8 @@
 | [typecho](https://github.com/lvillis/Dockerfiles/tree/master/typecho) |         [![Github Actions](https://img.shields.io/github/actions/workflow/status/lvillis/Dockerfiles/docker-publish-typecho.yml?style=flat-square)](https://github.com/lvillis/Dockerfiles/actions)         |   ![Docker Pulls](https://img.shields.io/docker/pulls/lvillis/typecho?style=flat-square)    |      [![Docker Image Size (tag)](https://img.shields.io/docker/image-size/lvillis/typecho/latest?style=flat-square)](https://hub.docker.com)      |
 
 
+## Special thanks
+
+[![Jetbrains Logo](https://krwu.github.io/img/jetbrains.svg)](https://www.jetbrains.com/?from=init-rs)
+
+Thanks to [Jetbrains](https://www.jetbrains.com/?from=tcping-rs) for supporting this small open source project!
