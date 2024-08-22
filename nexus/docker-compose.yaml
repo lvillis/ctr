@@ -1,0 +1,20 @@
+version: '3.8'
+
+x-services:
+  common: &common
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "1"
+    restart: always
+
+services:
+  nexus:
+    <<: *common
+    container_name: nexus
+    image: sonatype/nexus3:3.64.0
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./nexus-data:/nexus-data:rw
+      - /etc/localtime:/etc/localtime:ro
