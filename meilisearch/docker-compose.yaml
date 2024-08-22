@@ -1,0 +1,28 @@
+version: '3.8'
+
+x-services:
+  common: &common
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "1"
+    restart: always
+
+services:
+  meilisearch:
+    <<: *common
+    container_name: meilisearch
+    image: getmeili/meilisearch:v1.7.6
+    ports:
+      - "7700:7700"
+    volumes:
+      - ./meili_data:/meili_data:rw
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      MEILI_MASTER_KEY: "meilisearch"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7700/health"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+      start_period: 3s
