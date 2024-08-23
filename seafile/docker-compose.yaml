@@ -1,0 +1,48 @@
+version: '3.8'
+
+x-services:
+  common: &common
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "1"
+    restart: always
+
+services:
+  seafile-mariadb:
+    <<: *common
+    image: mariadb:10.11
+    container_name: seafile_mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=changeme
+      - MYSQL_LOG_CONSOLE=true
+      - MARIADB_AUTO_UPGRADE=1
+    volumes:
+      - ./seafile-mariadb/data:/var/lib/mysql
+
+  seafile-memcached:
+    <<: *common
+    image: memcached:1.6.18
+    container_name: seafile_memcached
+    entrypoint: ["memcached", "-m", "256"]
+
+  seafile:
+    <<: *common
+    image: seafileltd/seafile-mc:11.0.9
+    container_name: seafile
+    ports:
+      - "18080:80"
+      - "18443:443"
+    volumes:
+      - ./seafile-data:/shared
+    environment:
+      - DB_HOST=seafile-mariadb
+      - DB_ROOT_PASSWD=changeme
+      - TIME_ZONE=Asia/Shanghai
+      - SEAFILE_ADMIN_EMAIL=admin@example.com
+      - SEAFILE_ADMIN_PASSWORD=asecret
+      - SEAFILE_SERVER_LETSENCRYPT=false
+      - SEAFILE_SERVER_HOSTNAME=seafile.example.com
+    depends_on:
+      - seafile-mariadb
+      - seafile-memcached
