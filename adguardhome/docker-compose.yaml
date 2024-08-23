@@ -1,0 +1,22 @@
+version: "3.8"
+
+x-services:
+  common: &common
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "1"
+    restart: always
+
+services:
+  adguardhome:
+    <<: *common
+    container_name: adguardhome
+    image: adguard/adguardhome:latest
+    ports:
+      - "53:53/udp"
+      - "3000:3000"
+    volumes:
+      - ./work:/opt/adguardhome/work
+      - ./conf:/opt/adguardhome/conf
+      - /etc/localtime:/etc/localtime:ro
