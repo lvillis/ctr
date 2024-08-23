@@ -1,0 +1,48 @@
+version: "3.8"
+
+x-services:
+  common: &common
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "1"
+    restart: always
+
+services:
+  lldap:
+    <<: *common
+    container_name: lldap
+    image: lldap/lldap:stable
+    ports:
+      # For LDAP
+      - "3890:3890"
+      # For LDAPS (LDAP Over SSL), enable port if LLDAP_LDAPS_OPTIONS__ENABLED set true, look env below
+      #- "6360:6360"
+      # For the web front-end
+      - "17170:17170"
+    volumes:
+      - ./lldap_data:/data:rw
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - UID=1000
+      - GID=1000
+      - TZ=Asia/Shanghai
+      - LLDAP_JWT_SECRET=changeme
+      - LLDAP_LDAP_USER_PASS=changeme
+      - LLDAP_LDAP_BASE_DN=dc=example,dc=com
+      - LLDAP_HTTP_URL=http://ldap.example.com
+      - LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET=true
+      - LLDAP_SMTP_OPTIONS__SERVER=smtp.exmail.example.com
+      - LLDAP_SMTP_OPTIONS__PORT=465
+      - LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION=TLS
+      - LLDAP_SMTP_OPTIONS__USER=changeme@example.com
+      - LLDAP_SMTP_OPTIONS__PASSWORD=example
+      - LLDAP_SMTP_OPTIONS__FROM=LDAP Admin <changeme@example.com>
+      - LLDAP_SMTP_OPTIONS__REPLY_TO=Do not reply <noreply@example.com>
+      # If using LDAPS, set enabled true and configure cert and key path
+      # - LLDAP_LDAPS_OPTIONS__ENABLED=true
+      # - LLDAP_LDAPS_OPTIONS__CERT_FILE=/path/to/certfile.crt
+      # - LLDAP_LDAPS_OPTIONS__KEY_FILE=/path/to/keyfile.key
+      # You can also set a different database:
+      # - LLDAP_DATABASE_URL=mysql://mysql-user:password@mysql-server/my-database
+      # - LLDAP_DATABASE_URL=postgres://postgres-user:password@postgres-server/my-database
